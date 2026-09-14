@@ -206,17 +206,11 @@ def main():
 </div>
 """)
 
-    # Push
+    # Push - 只在任务失败时推送
     ptoken = os.environ.get("PUSHPLUS_TOKEN")
-    if ptoken:
-        # Get first user's points for title
-        first_points = "多账户"
-        if len(cookies) == 1:
-            # Re-parse log to find points? Or just use last object
-            # Ideally store objects. Using simplified approach:
-            pass 
-        
-        title = f"GLaDOS签到: 成功{success_cnt}/{len(cookies)}"
+    fail_cnt = len(cookies) - success_cnt
+    if ptoken and fail_cnt > 0:
+        title = f"GLaDOS签到失败: {fail_cnt}/{len(cookies)}个账户失败"
         content = "".join(results)
         content += f"<br><small>时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</small>"
         pushplus(ptoken, title, content)
