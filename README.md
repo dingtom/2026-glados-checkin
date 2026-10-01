@@ -1,5 +1,16 @@
 # 🎁 5 分钟配置 GLaDOS 自动签到
 
+> [!IMPORTANT]
+> **✅ GLaDOS 自动签到已恢复（2026-09-30）。** 新版认证修复已发布，维护者仓库已验证签到与 PushPlus 通知正常，[查看恢复公告和实测记录](https://github.com/lankerr/2026-glados-checkin/releases/tag/v2026.9.30)。
+>
+> Fork 用户请先 **Sync fork → Update branch**。**已能正常签到的用户无需更换 Cookie。**
+>
+> 同步后若仍提示“没有权限”、`device-mismatch` 或 “Automated check-in detected”，再重新登录，从成功的 `/api/user/status` 请求中复制**完整单行 Cookie**（包含 `gld:sess` 与 `gld:sess.sig`）更新 `GLADOS_COOKIE`，并将同一登录浏览器的完整 User-Agent 配置为 `GLADOS_USER_AGENT`。
+>
+> **同步代码不会更新个人仓库的 Secrets 和 Variables。** 请手动运行一次验证自己的配置。
+>
+> 希望收到后续修复公告，可在原仓库选择 **Watch → Custom → Releases**。Fork 本身不代表订阅更新通知。
+
 <div align="center">
 
 **你不用写代码 · 不用买服务器 · 不用每天登录**
@@ -726,7 +737,29 @@ GitHub 的 schedule 不是实时调度器：高负载时可能延迟，极端情
 
 ---
 
+## 🙏 致谢
+
+感谢通过 Pull Request 改进本项目的贡献者。每一项修复和文档改进都让自动签到更可靠，也让新用户更容易完成配置。
+
+| 贡献者 | 贡献 | Pull Request |
+| --- | --- | --- |
+| [@badpinkman](https://github.com/badpinkman) | 适配新版 `gld:sess` 会话与浏览器设备校验，完善 Cookie 获取、User-Agent 配置和认证失败提示，并提供真实运行验证。 | [#18](https://github.com/lankerr/2026-glados-checkin/pull/18) |
+| [@Unexpectedlyc](https://github.com/Unexpectedlyc) | 调整 README 的部署顺序与说明，减少 GitHub Actions 和外部定时器配置带来的误解。 | [#5](https://github.com/lankerr/2026-glados-checkin/pull/5) |
+| [@Initsnow](https://github.com/Initsnow) | 添加 Telegram 推送、通知级别与 NixOS Flake 支持，并修复 Telegram 消息格式问题。 | [#3](https://github.com/lankerr/2026-glados-checkin/pull/3) |
+
+同时感谢 [@LxFairy](https://github.com/LxFairy) 提交上游同步与冲突处理 PR（[#8](https://github.com/lankerr/2026-glados-checkin/pull/8)、[#9](https://github.com/lankerr/2026-glados-checkin/pull/9)，未合并），以及在 Issues 中提供报错日志、排查线索和复测反馈的用户。
+
+特别感谢 @badpinkman 对 2026 年 9 月认证故障的排查与修复，帮助本项目恢复正常签到。
+
+---
+
 ## 📝 更新日志
+
+### 2026-09-30：新版会话与设备校验修复
+
+- 合并 [@badpinkman 的 PR #18](https://github.com/lankerr/2026-glados-checkin/pull/18)，适配 `gld:sess` / `gld:sess.sig` 和 `GLADOS_USER_AGENT`。
+- 旧会话导致的“没有权限”需要通过重新登录、更新完整 Cookie 解决；设备校验还要求 User-Agent 与生成会话的浏览器一致。Fork 同步代码不会自动更新个人仓库的 Secrets 和 Variables。
+- 维护者仓库在更新配置后完成真实验证：[首次签到成功](https://github.com/lankerr/2026-glados-checkin/actions/runs/36687039069)，[同日重复签到正常返回](https://github.com/lankerr/2026-glados-checkin/actions/runs/36708285323)。
 
 ### v1.2.0 (2026-08-05)
 
@@ -772,7 +805,7 @@ MIT
 
 **Made with ❤️ for GLaDOS users in 2026**
 
-**🔧 本项目最近一次维护验证：2026-08-05**
+**🔧 本项目最近一次维护验证：2026-09-30**
 
 **⭐ Star 一下，支持作者持续更新！⭐**
 
